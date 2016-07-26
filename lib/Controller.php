@@ -20,10 +20,6 @@ class Controller
 		echo 'No routing yet!';
 	}
 
-	public function loadModel($model)
-	{
-
-	}
 }
 
 ?>

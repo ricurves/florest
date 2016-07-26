@@ -1,13 +1,11 @@
 <?php
 
 $config = [
-			'mode' => 'development',
 			'debug' => true,
-			'log.enabled' => true,
+			'profiler' => false,
 			'http.version' => '1.1',
 		];
 
-require 'vendor/autoload.php';
 require 'bootstrap.php'
 
 ?>
