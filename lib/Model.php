@@ -5,10 +5,12 @@ class Model
 {
 	public $db;
 	public $tableName;
+	public $pager;
 	
 	function __construct() 
 	{
 		$this->db = $this->_connect();
+		$this->pager = new Pager;
 	}
 
 	public function _connect() 

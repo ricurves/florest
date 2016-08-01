@@ -16,6 +16,7 @@ class PendapatanController extends Controller
 				$model = new Pendapatan;
 		    	echo json_encode($model->listData($params));
 			});
+		
 		$this->app->get($this->path . ':id', 
 			function ($id) {
 				$model = new Pendapatan;

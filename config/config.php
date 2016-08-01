@@ -8,7 +8,7 @@ $dbConf = [
         ];
 
 $appConf = [
-			'showPages' => 10,
+			'pageSize' => 10,
 		];
 
 ?>
