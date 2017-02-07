@@ -9,9 +9,19 @@ class Pendapatan extends Model
 
 	public function listData($params)
 	{
+
+		// Custom query based on filter goes here
+		$filterSql = '';
+		if (isset($params['q']))
+		{
+			$q = '%' . $params['q'] . '%';
+			$filterSql = ' WHERE ket LIKE :q';
+		}
+
 		// Count query for paging purpose ===============================
-		$countSql = 'SELECT COUNT(*) FROM ' . $this->tableName;
+		$countSql = 'SELECT COUNT(*) FROM ' . $this->tableName . $filterSql;
 		$countStmt = $this->db->prepare($countSql);
+		$countStmt->bindParam(':q', $q);
 		$countStmt->execute();
 
 		$totalCount = $countStmt->fetchColumn();
@@ -19,13 +29,14 @@ class Pendapatan extends Model
 		$this->pager->defaultSort = '-tanggal';
 		// ==============================================================
 
-		// Main query
-		$sql = 'SELECT * FROM ' . $this->tableName;
+		// Main query +++++++++++++++++++++++++++++++++++++++++++++++++++
+		$sql = 'SELECT * FROM ' . $this->tableName . $filterSql;
 
 		// Add paging & sorting to the main query
 		$sql .= $this->pager->query($sql);
 
 		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':q', $q);
 		$stmt->execute();
 		$errorInfo = $stmt->errorInfo();
 
@@ -36,6 +47,7 @@ class Pendapatan extends Model
 			$items = $stmt->fetchAll();
 			return $this->pager->generate($items); 
 		}
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	}
 
 }

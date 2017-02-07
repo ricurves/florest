@@ -40,7 +40,11 @@ class Pager
 		}
 
 		$this->first = 1;
-		$this->last = ceil($totalCount / $this->pageSize);
+
+		if ($totalCount == 0)
+			$this->last = 1;
+		else
+			$this->last = ceil($totalCount / $this->pageSize);
 
 		// Prevent user accessing page outside of the range
 		if ($this->page < 1)
