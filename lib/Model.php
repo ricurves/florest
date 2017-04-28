@@ -22,7 +22,7 @@ class Model
 
 	public function findAll($params = null)
 	{
-		$sql = 'SELECT * FROM ' . $this->tableName . ' LIMIT 0,30';
+		$sql = 'SELECT * FROM ' . $this->tableName;
 
 		if ($params)
 			$sql .= ' ' . $params;
@@ -36,6 +36,18 @@ class Model
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute([$id]);
 		return $stmt->fetch(\PDO::FETCH_ASSOC);
+	}
+
+	public function delete($id)
+	{
+		$sql = 'DELETE FROM ' . $this->tableName . ' WHERE id = ?';
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute([$id]);
+		
+		if ($stmt->rowCount() >= 1)
+			return true;
+		else
+			return false;
 	}
 }
 

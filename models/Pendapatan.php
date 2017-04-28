@@ -10,13 +10,14 @@ class Pendapatan extends Model
 	public function listData($params)
 	{
 
-		// Custom query based on filter goes here
+		// Custom query based on filter goes here =======================
 		$filterSql = '';
 		if (isset($params['q']))
 		{
 			$q = '%' . $params['q'] . '%';
 			$filterSql = ' WHERE ket LIKE :q';
 		}
+		// ==============================================================
 
 		// Count query for paging purpose ===============================
 		$countSql = 'SELECT COUNT(*) FROM ' . $this->tableName . $filterSql;
@@ -44,7 +45,7 @@ class Pendapatan extends Model
 			return $errorInfo;
 		else
 		{
-			$items = $stmt->fetchAll();
+			$items = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 			return $this->pager->generate($items); 
 		}
 		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

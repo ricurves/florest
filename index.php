@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');
 $config = [
 			'debug' => true,
 			'profiler' => false,

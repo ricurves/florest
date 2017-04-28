@@ -9,6 +9,7 @@ class Pager
 	public $page;
 	public $next;
 	public $last;
+	public $pageCount;
 	public $pageSize;
 	public $offset;
 	public $defaultSort;
@@ -45,6 +46,8 @@ class Pager
 			$this->last = 1;
 		else
 			$this->last = ceil($totalCount / $this->pageSize);
+		
+		$this->pageCount = $this->last;
 
 		// Prevent user accessing page outside of the range
 		if ($this->page < 1)
@@ -120,6 +123,7 @@ class Pager
 			'pager' => [
 						'totalCount' => $this->totalCount,
 						'rowCount' => $rowCount,
+						'pageCount' => $this->pageCount,
 						'first' => $this->first,
 						'prev' => $this->prev,
 						'page' => $this->page,
